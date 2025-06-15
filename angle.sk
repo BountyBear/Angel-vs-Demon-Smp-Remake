@@ -1,0 +1,492 @@
+# Angle / Demon Smp
+# Made by BountyBear [EvokerCord]
+on load:
+	set {-level} to echo shard named "&a Extra Level" With lore "&b Right Click To Consume"
+	set {-compass} to compass named "&f Angle &e Tracking Compass" with lore "&a Right Click To Track an Angel"
+	set {loc} to location at 0, 73, 0 in world "world_nether"
+
+
+
+# Item use
+on right click with echo shard:
+	if player's held item's lore contains "&b Right Click To Consume":
+		if item cooldown of player's tool for player is 0 ticks:
+			set item cooldown of player's tool for player to 5 seconds
+			if {level::%player's uuid%} < 3:
+				add 1 to {level::%player's uuid%}
+				send " &fYou Are on %{level::%player's uuid%}% &a Levels" to player
+				remove 1 of event-item from player's inventory
+			else:
+				send "&c You Are &b Overflowing" to player
+		else:
+			send "&c Item is On Cooldown" to player
+	
+
+# levels
+command /level <text> <text>:
+	trigger:
+		if arg-1 is "set":
+			if player has permission "op":
+				if arg-2 is set:
+					set {_i} to arg-2 parsed as integer
+					set {level::%player's uuid%} to {_i}
+					send "&f You Are On %{level::%player's uuid%}% &a Level(s)" to player
+		if arg-1 is "check":
+			if arg-2 is set:
+				set {_p} to arg-2 parsed as player
+				set {_uuid} to {_p}'s uuid
+				send "&f They Are On &b&l%{level::%{_uuid}%}% &aLevel(s)" to player
+
+# Roles Check / Setself
+command /role <text> <text>:
+	permission: op
+	trigger:
+		if arg-1 is "set":
+			if arg-2 is "angel" or "Angel":
+				set {role::%player's uuid%} to "&f ᴀɴɢᴇʟ"
+				send "%{role::%player's uuid%}%" to player
+			else if arg-2 is "demon" or "Demon":
+				set {role::%player's uuid%} to "&c ᴅᴇᴍᴏɴ"
+				send "%{role::%player's uuid%}%" to player
+		if arg-1 is "check":
+			if arg-2 is set:
+				Set {_p} to arg-2 parsed as player
+				if {_p} is online:
+					set {_uuid} to {_p}'s uuid
+					if {role::%{_uuid}%} is "&f ᴀɴɢᴇʟ":
+						send "&fʏᴏᴜ ᴀʀᴇ ᴀɴ &l%{role::%{_uuid}%}%" to {_p}
+						send "&7----------------------------" to {_p}
+						send "&aLevel 0-&7 No Fall Damage" to {_p}
+						send "&aLevel 1-&f Dash Ability" to {_p}
+						send "&aLevel 2-&f Dash Ability, &b Speed 1" to {_p}
+						send "&aLevel 3-&f Dash Ability, &b Speed 1, &f Strike Ring" to {_p}
+						send "&aOverworld- &4Health Boost 2" to {_p}
+					if  {role::%{_uuid}%} is "&c ᴅᴇᴍᴏɴ":
+						send "&cʏᴏᴜ ᴀʀᴇ ᴀ &l%{role::%{_uuid}%}% " to {_p}
+						send "&cLevel 0- &f Fire Resistance" to {_p}
+						send "&cLevel 1- <##FFD580>Fireball" to {_p}
+						send "&cLevel 2- <##FFD580>Fireball&f, &4 Strength 1" to {_p}
+						send "&cLevel 3- <##FFD580>Fireball&f, &4 Strength 1&f, &e Tracking Compass" to {_p}
+						send "&cNether- &e Haste 2" to {_p}
+				else:
+					send "&c Player is Offline Or Invalid" to player
+			else if arg-2 is "me":
+				if {role::%player's uuid%} is "&f ᴀɴɢᴇʟ":
+					send "&fʏᴏᴜ ᴀʀᴇ ᴀɴ &l%{role::%player's uuid%}%" to player
+					send "&7----------------------------" to player
+					send "&aLevel 0-&7 No Fall Damage" to player
+					send "&aLevel 1-&f Dash Ability" to player
+					send "&aLevel 2-&f Dash Ability, &b Speed 1" to player
+					send "&aLevel 3-&f Dash Ability, &b Speed 1, &f Strike Ring" to player
+					send "&aOverworld- &4Health Boost 2" to player
+				if  {role::%player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+					send "&cʏᴏᴜ ᴀʀᴇ ᴀ &l%{role::%player's uuid%}% " to player
+					send "&cLevel 0- &f Fire Resistance" to player
+					send "&cLevel 1- <##FFD580>Fireball" to player
+					send "&cLevel 2- <##FFD580>Fireball&f, &4 Strength 1" to player
+					send "&cLevel 3- <##FFD580>Fireball&f, &4 Strength 1&f, &e Tracking Compass" to player
+					send "&cNether- &e Haste 2" to player
+
+
+
+# Smp
+command /smp <text>:
+	trigger:
+		if arg-1 is "role":
+			if {role::%player's uuid%} is "&f ᴀɴɢᴇʟ":
+				send "&fʏᴏᴜ ᴀʀᴇ ᴀɴ &l%{role::%player's uuid%}%" to player
+				send "&7----------------------------" to player
+				send "&aLevel 0-&7 No Fall Damage" to player
+				send "&aLevel 1-&f Dash Ability" to player
+				send "&aLevel 2-&f Dash Ability, &b Speed 1" to player
+				send "&aLevel 3-&f Dash Ability, &b Speed 1, &f Strike Ring" to player
+				send "&aOverworld- &4Health Boost 2" to player
+			if  {role::%player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+				send "&cʏᴏᴜ ᴀʀᴇ ᴀ &l%{role::%player's uuid%}% " to player
+				send "&cLevel 0- &f Fire Resistance" to player
+				send "&cLevel 1- <##FFD580>Fireball" to player
+				send "&cLevel 2- <##FFD580>Fireball&f, &4 Strength 1" to player
+				send "&cLevel 3- <##FFD580>Fireball&f, &4 Strength 1&f, &e Tracking Compass" to player
+				send "&cNether- &e Haste 2" to player
+		if arg-1 is "level":
+			send "&f You Are on &5%{level::%player's uuid%}% Levels" to player
+		if arg-1 is "tracker":
+			if player has permission "op":
+				give player {-compass}
+
+
+# Powers
+command /ability1:
+	trigger:
+		if {level::%player's uuid%} > 0:
+			if {role::%player's uuid%} is "&f ᴀɴɢᴇʟ":
+				if {dash.cooldown::%player's uuid%} is not "&aReady!":
+					send "&f Your &f&l Dash &f Is On Cooldown for %{dash.cooldown::%player's uuid%}% &f Seconds"
+				else:
+					set {dash.cooldown::%player's uuid%} to 30
+					set {_l} to player's location
+					push player up at speed 0.5
+					push player forward at speed 3
+					loop 25 times:
+						draw 50 of cloud at {_l} with offset vector(1, 1, 1) with extra 0.2 with force
+			if {role::%player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+				if {fireball.cooldown::%player's uuid%} is not "&aReady!":
+					send "&f Your &c&l Fireball &f Is On Cooldown For %{fireball.cooldown::%player's uuid%}% &f Seconds"
+				else:
+					set {fireball.cooldown::%player's uuid%} to 60
+					make player shoot a fireball at speed 2
+					play sound "entity.ghast.shoot" at volume 3 to player
+					set {_l} to player's location
+					add 1 to {_l}
+					set {-firebb::%player's uuid%} to true
+					loop 25 times:
+						draw 20 of flame at {_l} with offset vector(1, 1, 1) with extra 0.2 with force
+
+
+
+command /ability2:
+	trigger:
+		if {level::%player's uuid%} > 2:
+			if {role::%player's uuid%} is "&f ᴀɴɢᴇʟ":
+				if {strike.cooldown::%player's uuid%} is not "&aReady!":
+					send "&f Your &f&l Strike Ring &f Ability Is On Cooldown for %{strike.cooldown::%player's uuid%}% &f Seconds" to player
+				else:
+					set {strike.cooldown::%player's uuid%} to 45
+					set {_loc} to player's location
+					set {_p} to player
+					loop 10 times:
+						loop 10 times:
+							loop all entities within 5 blocks of {_loc}:
+								if loop-entity is not {_p}:
+									damage loop-entity by 5
+									wait 4 ticks
+
+
+
+on shoot:
+	if {-firebb::%shooter's uuid%} is true:
+		if event-projectile is large fireball:
+			draw 2 of flame at event-projectile with force
+			draw 4 of dust using dustOption(rgb(173, 40, 0), 2) at event-projectile
+
+on projectile hit:
+	if event-projectile is a large fireball:
+		if {-firebb::%shooter's uuid%} is true:
+			create an explosion of force 4.5 at event-projectile
+			delete {-firebb::%shooter's uuid%}
+
+
+on join:
+	cooldown(player)
+
+command /cooldown:
+	permission: op
+	trigger:
+		cooldown(player)
+
+
+every 1 second:
+	loop all players:
+		cooldownsystem(loop-player)
+
+every 10 ticks:
+	loop all players:
+		actionbar(loop-player)
+
+
+function actionbar(p: player):
+	set {_uuid} to {_p}'s uuid
+	if {level::%{_uuid}%} > 0:
+		if {role::%{_uuid}%} is "&f ᴀɴɢᴇʟ":
+			if {dash.cooldown::%{_uuid}%} is not "&aReady!":
+				send action bar "&f[💨] ᴅᴀꜱʜ &b%{dash.cooldown::%{_uuid}%}%s" to {_p}
+			else:
+				send action bar "&f[💨] ᴅᴀꜱʜ &b%{dash.cooldown::%{_uuid}%}%" to {_p}
+	if {level::%{_uuid}%} > 2:
+		if {role::%{_uuid}%} is "&f ᴀɴɢᴇʟ":
+			send action bar "&7[&f💨&7] ᴅᴀꜱʜ &b%{dash.cooldown::%{_uuid}%}% &7| &7[&f🛡&7] &eꜱᴛʀɪᴋᴇ-ʀɪɴɢ &b%{strike.cooldown::%{_uuid}%}%" to {_p}
+	if {level::%{_uuid}%} > 0:
+		if {role::%{_uuid}%} is "&c ᴅᴇᴍᴏɴ":
+			send action bar "&f[&c🔥&f] &cFireball %{fireball.cooldown::%{_uuid}%}%" to {_p}
+
+function cooldownsystem(p: player):
+	set {_uuid} to {_p}'s uuid
+	if {dash.cooldown::%{_uuid}%} > 0:
+		remove 1 from {dash.cooldown::%{_uuid}%}
+	if {dash.cooldown::%{_uuid}%} is 0:
+		set {dash.cooldown::%{_uuid}%} to "&aReady!"
+	if {fireball.cooldown::%{_uuid}%} > 0:
+		remove 1 from {fireball.cooldown::%{_uuid}%}
+	if {fireball.cooldown::%{_uuid}%} is 0:
+		set {fireball.cooldown::%{_uuid}%} to "&aReady!"
+	if {strike.cooldown::%{_uuid}%} > 0:
+		remove 1 from {strike.cooldown::%{_uuid}%}
+	if {strike.cooldown::%{_uuid}%} is 0:
+		set {strike.cooldown::%{_uuid}%} to "&aReady!"
+
+function cooldown(p: player):
+	set {_uuid} to {_p}'s uuid
+	set {fireball.cooldown::%{_uuid}%} to "&aReady!"
+	set {dash.cooldown::%{_uuid}%} to "&aReady!"
+	set {strike.cooldown::%{_uuid}%} to "&aReady!"
+
+# Setrole all
+command /setrole <text> <text>:
+	permission: op
+	trigger:
+		if arg-1 is set:
+			set {_p} to arg-1 parsed as player
+			set {_uuid} to {_p}'s uuid
+			if arg-2 is "Angel":
+				set {role::%{_uuid}%} to "&f ᴀɴɢᴇʟ"
+				send "&f You Are %{role::%{_uuid}%}%" to {_p}
+				send "&c Roles Set &a Successfully" to player
+			if arg-2 is "Demon":
+				set {role::%{_uuid}%} to "&c ᴅᴇᴍᴏɴ"
+				send "&c You Are %{role::%{_uuid}%}%" to {_p}
+				send "&c Roles Set &a Successfully" to player
+
+command /setlevel <text> <text>:
+	permission: op
+	trigger:
+		if arg-1 is set:
+			set {_p} to arg-1 parsed as player
+			set {_uuid} to {_p}'s uuid
+			if arg-2 is set:
+				set {_i} to arg-2 parsed as integer
+				set {level::%{_uuid}%} to %{_i}%
+				send "&f Your Levels are &a {_i}" to {_p}
+
+
+command /levelitem:
+	permission: op
+	trigger:
+		give player 1 of {-level}
+
+on tab complete of "setlevel":
+	set tab completions for position 1 to all players
+	set tab completions for position 2 to "-3", "-2", "-1", "1", "2", "3"
+
+on tab complete of "/smp":
+	set tab completions for position 1 to "role", "level","tracker"
+
+on tab complete of "/role":
+	set tab completions for position 1 to "set", "check"
+	if tab arg-1 = "set":
+		set tab completions for position 2 to "Angel", "Demon"
+	if tab arg-1 = "check":
+		set tab completions for position 2 to all players
+
+on tab complete of "level":
+	set tab completions for position 1 to "check", "set"
+	if tab arg-1 = "set":
+		set tab completions for position 2 to "-4", "-3", "-2", "-1", "0", "1", "2", "3"
+	if tab arg-1 = "check":
+		set tab completions for position 2 to all players
+
+on tab complete of "setrole":
+	set tab completions for position 1 to all players
+	set tab completions for position 2 to "Angel", "Demon"
+
+on first join:
+	set {role::%player's uuid%} to "&f ᴀɴɢᴇʟ"
+	set {level::%player's uuid%} to 0
+
+# Tracking Item Use
+on right click with compass:
+	if {role::%player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+		if lore of player's held item contains "&a Right Click To Track an Angel":
+			set {_Angle::Tracking::GUI} to a new chest inventory with 6 row with name "&7Select &f Angel"
+			loop 1 time:
+				loop all players:
+					if  {role::%loop-player's uuid%} is not "&f ᴀɴɢᴇʟ":
+						set {_p} to loop-player
+						set slot {_s} of {_Angle::Tracking::GUI} to {_p}'s skull named "%{_p}%"
+						add 1 to {_s}
+					wait 1 tick
+					open {_Angle::Tracking::GUI} to player
+
+# Actual Tracking
+on inventory click:
+	loop all players:
+		if name of event-inventory is "&7Select &f Angel":
+			cancel event
+			if event-item is a player head:
+				set {_uuid} to uuid of player
+				set {_T} to event-item's name
+				set {-Tplayer::%{_uuid}%} to {_T} parsed as player			
+				set {_targetPlayer} to {_T}
+				if {_targetPlayer} is online:
+					play sound "entity.warden.heartbeat" with volume 4 to {_targetPlayer}
+					play sound "block.bell.use" with volume 10 and pitch 0.8 to {_targetPlayer}
+					play sound "ambient.cave" with volume 8 and pitch 0.8 to {_targetPlayer}
+					set {compass::target::%player%} to location of {_targetPlayer}
+				else:
+					send "The selected player is not online or invalid!" to player
+
+# Death Event
+on death of player:
+	if {role::%victim's uuid%} is "&f ᴀɴɢᴇʟ":
+		set {role::%victim's uuid%} to "&c ᴅᴇᴍᴏɴ"
+		set {_l2} to victim's location
+		if {level::%attacker's uuid%} is less than or equal to 3:
+			add 1 to {level::%attacker's uuid%}
+			remove 1 from {level::%victim's uuid%}
+			set {respawn.nether::%victim's uuid%} to false
+		else if {level::%attacker's uuid%} is 3:
+			drop 1 of {-level} at {_l2}
+			remove 1 from {level::%victim's uuid%}
+		wait 1 second
+		send "&cYou Are Now %{role::%victim's uuid%}% " to victim
+
+
+on respawn:
+	if {respawn.nether::%player's uuid%} is false:
+		teleport player to {loc}
+		set {respawn.nether::%player's uuid%} to true
+
+
+on death of player:
+	if attacker is not player:
+		remove 1 from {level::%victim's uuid%}
+		drop 1 of {-level} at victim's location
+		set {respawn.nether::%victim's uuid%} to false
+		send "&cYou Are Now %{role::%victim's uuid%}% " to victim
+
+on join:
+	if {role::%player's uuid%} is not set:
+		set {role::%player's uuid%} to "&f ᴀɴɢᴇʟ"
+		set {level::%player's uuid%} to 0
+
+on damage:
+	if damage cause is fall:
+		if {role::%victim's uuid%} is "&f ᴀɴɢᴇʟ":
+			cancel event
+			loop 20 times:
+				Circle2(1.4,victim)
+				wait 5 ticks
+
+every 1 tick:
+	loop all players:
+		if loop-player is in world "world":
+			if {role::%loop-player's uuid%} is "&f ᴀɴɢᴇʟ":
+				Circle1(0.4,loop-player)
+				apply health boost 2 to loop-player for 1 seconds replacing the existing effect
+				draw 1 of cloud at location below loop-player with offset vector(0.5, 0, 0.4) with extra 0.0000001
+			if {role::%loop-player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+				apply glowing 2 to loop-player for 1 seconds replacing the existing effect
+		else if loop-player is in world "world_nether":
+			if {role::%loop-player's uuid%} is "&f ᴀɴɢᴇʟ":
+				apply glowing 2 to loop-player for 1 seconds replacing the existing effect
+			if {role::%loop-player's uuid%} is "&c ᴅᴇᴍᴏɴ":
+				apply fire resistance to loop-player for 1 second replacing the existing effect
+				apply haste 2 to loop-player for 1 second replacing the existing effect
+
+
+every 5 ticks:
+	loop all players:
+		LevelEffects(loop-player)
+
+function LevelEffects(p: player):
+	set {_uuid} to {_p}'s uuid
+	if {level::%{_uuid}%} > 1:
+		if {role::%{_uuid}%} is "&f ᴀɴɢᴇʟ":
+			apply speed 1 to {_p} for 2 seconds replacing the existing effect
+		if {role::%{_uuid}%} is "&c ᴅᴇᴍᴏɴ":
+			if {level::%{_uuid}%} > 1:
+				apply strength to {_p} for 2 seconds replacing the existing effect
+	if {role::%{_uuid}%} is "&f ᴀɴɢᴇʟ":
+		set {_p}'s chat name to "&e<&f&lᴀ&e> &e%{_p}%"
+		set {_p}'s tab name to "&e<&f&lᴀ&e> &e%{_p}%"
+	if {role::%{_uuid}%} is "&c ᴅᴇᴍᴏɴ":
+		set {_p}'s tab name to "&4<&c&lᴅ&4> &4%{_p}%"
+		set {_p}'s chat name to "&4<&c&lᴅ&4> &4%{_p}%"
+
+function Circle1(s: number, p: location):
+	set {_spacing} to 0.1
+	set {_pl} to location 2.5 blocks above {_p}
+	set {_circumference} to 1 * pi * {_s}
+	
+	# Calculate the number of particles based on the spacing
+	set {_numParticles} to floor({_circumference} / {_spacing})
+	
+	# Spawn the exact number of particles needed
+
+	loop {_numParticles} times:
+		set {_angle} to loop-value * 360 / {_numParticles}
+		set {_v} to spherical vector with radius {_s}, yaw {_angle} and pitch 0
+		
+		make 0 of dust using dustOption(rgb(255, 251, 31), 1) at {_pl} ~ {_v} with force
+
+
+function Circle2(s: number, p: location):
+	set {_spacing} to 0.01
+	set {_pl} to location 0.1 blocks below {_p}
+	set {_circumference} to 1 * pi * {_s}
+	
+	# Calculate the number of particles based on the spacing
+	set {_numParticles} to floor({_circumference} / {_spacing})
+	
+	# Spawn the exact number of particles needed
+
+	loop {_numParticles} times:
+		set {_angle} to loop-value * 360 / {_numParticles}
+		set {_v} to spherical vector with radius {_s}, yaw {_angle} and pitch 0
+		
+		make 1 of dust using dustOption(rgb(217, 219, 186), 1) at {_pl} ~ {_v}
+
+
+# Mace
+on craft:
+	if event-item is mace:
+		if {-Crafted} is not set:
+			set {-Crafted} to true
+			loop all players:
+				play sound "block.end_portal.spawn" at volume 2.5 at loop-player
+				send title "&f&kMace &f&kHas &f&kBeen &f&kCrafted" to loop-player
+				wait 1 second
+				send title "&fMace &f&kHas &f&kBeen &f&kCrafted" to loop-player
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				wait 1 second
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				send title "&f&Mace &fHas &f&kBeen &f&kCrafted" to loop-player
+				wait 1 second
+				send title "&fMace &fHas &fBeen &f&kCrafted" to loop-player
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				wait 1 second
+				send title "&fMace &fHas &fBeen &fCrafted" to loop-player
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				wait 1 second
+				send title "&fMace &fHas &fBeen &fCrafted" with subtitle "&b&kBy &b&kUnknown" to loop-player
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				wait 1 second
+				play sound "block.amethyst_block.resonate" at volume 2 to loop-player
+				send title "&fMace &fHas &fBeen &fCrafted" with subtitle "&b&lBy &b&kUnknown" to loop-player
+				wait 2 seconds
+				play sound "block.beacon.deactivate" at pitch 1.6 to loop-player
+				send title "&fMace &fHas &fBeen &fCrafted" with subtitle "&b&lBy &c&l%player%" to loop-player
+		else:
+			cancel event
+
+
+command /pvp <text>:
+	permission: op
+	trigger:
+		if arg-1 is "ON":
+			set {-PVP} to true
+			send title "&c PVP" with subtitle "&aON"
+		if arg-2 is "OFF":
+			set {-PVP} to false
+			send title "&c PVP" with subtitle "&cOFF"
+
+on damage:
+	if victim is player:
+		if attacker is player:
+			if {PVP} is false:
+				cancel event
+				send "&4 Pvp &f is &c Off" to attacker
+			else:
+				stop
+
+on tab complete for "/pvp":
+	set tab completion for position 1 to "ON" and "OFF"
